@@ -1,0 +1,83 @@
+//interfaces exsist to strictly provide type information to TypeScript
+interface Contact extends Address{
+    id: number;
+    name: string;
+    //when impliment the alias, it will be name: ContactName
+    //Question mark makes the property optional 
+    birthDate?: Date;
+    status?: ContactStatus;
+    status3?: ContactStatus3;
+    clone?(name: string): Contact;
+}
+
+
+//enums are a special type that has a hard-coded list of values, Kinda like a drop down menu
+//initialy applied default values like 1,2,3 but can be given any value type as all as every value in the enum is the same type
+enum ContactStatus{
+    Active,
+    Inactive,
+    New
+}
+
+enum ContactStatus2{
+    Active = "Active",
+    Inactive = "Inactive",
+    New = "New"
+}
+
+//enums can be rewriiten as a union type
+type ContactStatus3 = "Active" | "Inactive" | "New";
+
+
+interface Address{
+    line1?: string;
+    line2?: string;
+    province?: string;
+    region?: string;
+    postalCode?: string;
+}
+
+
+let primaryContact: Contact = {
+    id: 12345,
+    name: "John Doe",
+    status: ContactStatus.Active,
+    //using the union type instead of the enum
+    status3: "Active"
+}
+
+//type aliases are used to create a new name for a type
+type ContactName = string
+
+// this func takes in type any and outputs type any
+function clone(source){
+    return Object.apply({}, source);
+}
+
+//this takes in type Contact, since its returning source TypeScript knows that the return type will be Contact
+function clone2(source: Contact){
+    return source;
+    //return Object.apply({}, source);
+}
+
+function clone3(source: Contact) : Contact{
+   return Object.apply({}, source);
+}
+
+// you can give a function as a parameter
+function clone4(source: Contact, func: (source: Contact) => Contact) : Contact{
+    return Object.apply({}, source);
+ }
+ 
+const a: Contact = {
+    id: 1,
+    name: "Mabing",
+}
+
+const b = clone3(a);
+
+//this alias can be used to define a type that can be a Date, number, or string
+type ContactBirthDate = Date | number | string;
+
+//this alias create a new type that is a combination of Contact and Address
+type AddressableContact = Contact & Address;

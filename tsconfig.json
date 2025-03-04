@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        //to check for types in JavaScript files, we need to set allowJs & checkJs to true
+        "allowJs": true,
+        "checkJs": true,
+        //set where the compiled files will be saved, into a folder called build
+        "outDir": "build",
+        //complies to ES6,used by most systems today
+        //complies to ESNext, meaning it will use the latest version of ECMAScript
+        "target": "ESNext",
+        //noEmit means that the compiler will not generate any output files..
+        //  as we are only checking for types
+        "noEmit": true
+    },
+    //look for all files in src folder, defines the scoop of the project
+    "include": ["src/**/*"] 
+
+}
